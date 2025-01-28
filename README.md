@@ -19,3 +19,8 @@ Demo: https://revolunet.github.io/mlops-classifier
 - Organise your files in the `./data` folder
 - Create a pull request to train and eval the model
 - Merge to produce the model files
+
+## Todo
+
+- PR comments in CI
+- publish gh-pages demo
