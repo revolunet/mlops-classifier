@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ONNX Runtime JavaScript example</title>
+  </head>
+  <body>
+    <h1>
+      ONNX model demo - see
+      <a href="https://github.com/revolunet/mlops-classifier">on GitHub</a>
+    </h1>
+    <textarea
+      id="input"
+      onChange="e=>predict(e.target.value)"
+      style="width: 800px; font-size: 20px; height: 100px"
+    ></textarea>
+    <h3 id="result"></h3>
+    <!-- see also advanced usage of importing ONNX Runtime Web: -->
+    <!-- https://github.com/microsoft/onnxruntime-inference-examples/tree/main/js/importing_onnxruntime-web -->
+
+    <!-- import ONNXRuntime Web from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+    <script>
+      const result = document.getElementById("result");
+      const input = document.getElementById("input");
+      const features = fetch("./Model/newsfr-features.json").then((r) =>
+        r.json()
+      );
+      const predict = async (query) => {
+        result.innerHTML = "...";
+        const news_session = await ort.InferenceSession.create(
+          "./Model/newsfr.onnx"
+        );
+        const data = [query];
+        const tensor = new ort.Tensor("string", data, [1]);
+
+        const modelResult = await news_session.run({ input: tensor });
+        const resultIndex = modelResult.label.cpuData.toString();
+        const resultLabel = (await features)[parseInt(resultIndex, 10)];
+
+        console.log({ query, resultIndex, resultLabel });
+        result.innerHTML = resultLabel;
+      };
+
+      input.addEventListener("keyup", (e) => {
+        console.log("e");
+        predict(e.target.value);
+      });
+    </script>
+  </body>
+</html>

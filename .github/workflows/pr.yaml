@@ -1,0 +1,27 @@
+name: ML Workflow
+
+on:
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions: write-all
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python Environment
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m venv .venv
+          . .venv/bin/activate
+          pip install -r requirements.txt
+
+      # Run Training Script
+      - name: Train
+        run: |
+          . .venv/bin/activate
+          jupyter execute notebook.ipynb
