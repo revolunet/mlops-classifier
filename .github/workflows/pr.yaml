@@ -18,10 +18,9 @@ jobs:
           python3 -m pip install --upgrade pip
           python3 -m venv .venv
           . .venv/bin/activate
-          pip install -r requirements.txt
+          ./venv/bin/pip3 install -r requirements.txt
 
-      # Run Training Script
-      - name: Train
+      - name: Train and eval
         run: |
           . .venv/bin/activate
-          jupyter execute notebook.ipynb
+          ./venv/bin/jupyter execute notebook.ipynb
