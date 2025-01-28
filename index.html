@@ -22,13 +22,13 @@
     <script>
       const result = document.getElementById("result");
       const input = document.getElementById("input");
-      const features = fetch("./Model/model-features.json").then((r) =>
+      const features = fetch("./model/model-features.json").then((r) =>
         r.json()
       );
       const predict = async (query) => {
         result.innerHTML = "...";
         const news_session = await ort.InferenceSession.create(
-          "./Model/model.onnx"
+          "./model/model.onnx"
         );
         const data = [query];
         const tensor = new ort.Tensor("string", data, [1]);
