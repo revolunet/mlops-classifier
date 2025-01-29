@@ -8,7 +8,6 @@ Demo: https://revolunet.github.io/mlops-classifier
 
 ## Features
 
-- multi-classifier
 - training runs on GitHub actions
 - pull requests get evaluation results
 - build `skops` and `onnx` models on merge
