@@ -22,5 +22,6 @@ Demo: https://revolunet.github.io/mlops-classifier
 
 ## Todo
 
+- gestion des accents !
 - PR comments in CI
 - publish gh-pages demo
